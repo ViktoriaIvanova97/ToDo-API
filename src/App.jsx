@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import RegisterForm from "./RegisterForm";
 import ToDoList from "./ToDoList";
+import ToDoForm from "./ToDoForm";
 import "./App.css";
 
 function App() {
@@ -8,7 +9,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Navigate to="/registerform" replace /> } />
       <Route path="/registerform" element={<RegisterForm />} />
-      <Route path="/todolist" element={<ToDoList />} />
+      <Route path="/todoform" element={<ToDoForm />} />
     </Routes>
   );
 }

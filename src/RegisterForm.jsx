@@ -1,36 +1,40 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "./api";
-import { registerUser } from "./api";
+import { Context } from "./Context";
 
 const RegisterForm = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [gender, setGender] = useState("");
-  const [age, setAge] = useState();
-  const [changeForm, setChangeForm] = useState(false);
+  const [age, setAge] = useState("");
+  const [changeForm, setChangeForm] = useState(true);
 
   const navigate = useNavigate();
+  const { login, register } = useContext(Context);
 
-  const handleLogin = async () => {
+  const handleRegister = async () => {
     try {
-      const data = await loginUser(email, password);
-      localStorage.setItem("token", data.token);
-      setEmail("");
+      await register(username, email, password, gender, age);
+      alert("Регистрация успешна!");
+      navigate("/todoform");
       setUsername("");
-      navigate("/todolist");
+      setEmail("");
+      setPassword("");
+      setGender("");
+      setAge("");
     } catch (error) {
       alert(error.message);
     }
   };
 
-  const handleRegister = async () => {
+  const handleLogin = async () => {
     try {
-      const data = await registerUser(username, email, password, gender, age);
-      localStorage.setItem("token", data.token);
-      alert("Регистрация успешна!");
-      navigate("/todolist");
+      await login(email, password);
+      alert("Вход успешен!");
+      navigate("/todoform");
+      setEmail("");
+      setPassword("");
     } catch (error) {
       alert(error.message);
     }
@@ -39,7 +43,7 @@ const RegisterForm = () => {
   return changeForm ? (
     <div className="registerForm">
       <h2>Регистрация</h2>
-      <button onClick={() => setChangeForm(true)}>
+      <button onClick={() => setChangeForm(false)}>
         Перейти к авторизации
       </button>
       <input
@@ -61,11 +65,7 @@ const RegisterForm = () => {
         placeholder="Пароль"
       />
       <label>
-        <select
-          value={gender}
-          placeholder="Пол"
-          onChange={(e) => setGender(e.target.value)}
-        >
+        <select value={gender} onChange={(e) => setGender(e.target.value)}>
           <option value="">Выберите пол</option>
           <option value="male">Мужской</option>
           <option value="female">Женский</option>
@@ -82,7 +82,7 @@ const RegisterForm = () => {
   ) : (
     <div className="registerForm">
       <h2>Авторизация</h2>
-      <button onClick={() => setChangeForm(false)}>Перейти к регистрации</button>
+      <button onClick={() => setChangeForm(true)}>Перейти к регистрации</button>
       <input
         type="email"
         value={email}

@@ -42,3 +42,23 @@ export const loginUser = async (email, password) => {
     throw e;
   }
 };
+
+
+export const getTasks = async(token) => {
+	try {
+		const res = await fetch('https://todo-redev.herokuapp.com/api/todos', {
+			method: "GET",
+			headers: {
+				'accept': ' application/json',
+				"Authorization": `Bearer ${token}`,
+			},
+		})
+		const response = await res.json();
+		if (!res.ok) {
+			throw new Error(response.message)
+		}
+	} catch (error) {
+		console.log("Ошибка при получении задач:", error)
+		throw error
+	}
+}
