@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "./api";
+import { registerUser } from "./api";
 
 const RegisterForm = () => {
   const [username, setUsername] = useState("");
@@ -6,12 +9,37 @@ const RegisterForm = () => {
   const [password, setPassword] = useState("");
   const [gender, setGender] = useState("");
   const [age, setAge] = useState();
-  const [changeForm, setChangeForm] = useState(true);
+  const [changeForm, setChangeForm] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    try {
+      const data = await loginUser(email, password);
+      localStorage.setItem("token", data.token);
+      setEmail("");
+      setUsername("");
+      navigate("/todolist");
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  const handleRegister = async () => {
+    try {
+      const data = await registerUser(username, email, password, gender, age);
+      localStorage.setItem("token", data.token);
+      alert("Регистрация успешна!");
+      navigate("/todolist");
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   return changeForm ? (
     <div className="registerForm">
       <h2>Регистрация</h2>
-      <button onClick={() => setChangeForm(false)}>
+      <button onClick={() => setChangeForm(true)}>
         Перейти к авторизации
       </button>
       <input
@@ -49,12 +77,12 @@ const RegisterForm = () => {
         onChange={(e) => setAge(e.target.value)}
         placeholder="Возраст"
       />
-      <button>Зарегистрироваться</button>
+      <button onClick={handleRegister}>Зарегистрироваться</button>
     </div>
   ) : (
     <div className="registerForm">
       <h2>Авторизация</h2>
-      <button onClick={() => setChangeForm(true)}>Перейти к регистрации</button>
+      <button onClick={() => setChangeForm(false)}>Перейти к регистрации</button>
       <input
         type="email"
         value={email}
@@ -67,7 +95,7 @@ const RegisterForm = () => {
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Пароль"
       />
-      <button>Зарегистрироваться</button>
+      <button onClick={handleLogin}>Войти</button>
     </div>
   );
 };
