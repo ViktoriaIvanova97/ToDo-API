@@ -43,22 +43,45 @@ export const loginUser = async (email, password) => {
   }
 };
 
+export const getTasks = async (token) => {
+  try {
+    const res = await fetch("https://todo-redev.herokuapp.com/api/todos", {
+      method: "GET",
+      headers: {
+        accept: " application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const response = await res.json();
+    if (!res.ok) {
+      throw new Error(response.message);
+	  }
+	  return response
+  } catch (error) {
+    console.log("Ошибка при получении задач:", error);
+    throw error;
+  }
+};
 
-export const getTasks = async(token) => {
-	try {
-		const res = await fetch('https://todo-redev.herokuapp.com/api/todos', {
-			method: "GET",
-			headers: {
-				'accept': ' application/json',
-				"Authorization": `Bearer ${token}`,
-			},
-		})
-		const response = await res.json();
-		if (!res.ok) {
-			throw new Error(response.message)
-		}
-	} catch (error) {
-		console.log("Ошибка при получении задач:", error)
-		throw error
-	}
-}
+export const addTask = async (token, title) => {
+  try {
+    const res = await fetch("https://todo-redev.herokuapp.com/api/todos", {
+      method: "POST",
+      headers: {
+        'accept': "application/json",
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({ title }),
+    });
+    const response = await res.json();
+
+    if (!res.ok) {
+      throw new Error(response.message || "Ошибка добавления задачи");
+    }
+    return response;
+  } catch (error) {
+    console.log("Ошибка при отправке задвчи:", error);
+    throw error;
+  }
+};

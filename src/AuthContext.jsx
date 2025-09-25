@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import { loginUser, registerUser, getTasks } from "./api";
+import { loginUser, registerUser, getTasks, addTask } from "./api";
 import { Context } from "./Context";
 
 export const AuthContext = ({ children }) => {
@@ -48,8 +48,18 @@ export const AuthContext = ({ children }) => {
     }
   }, [token]);
 
+  const createTask = async (title) => {
+    if (!token) return;
+    try {
+      await addTask(token, title);
+      await fetchTasks();
+    } catch (error) {
+      console.log("Ошибка при добавлении задачи:", error);
+    }
+  };
+  console.log(tasks);
   return (
-    <Context.Provider value={{ user, token, login, register, logout, tasks,fetchTasks }}>
+    <Context.Provider value={{ user, token, login, register, logout, tasks,fetchTasks ,createTask}}>
       {children}
     </Context.Provider>
   );
