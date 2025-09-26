@@ -41,9 +41,9 @@ const RegisterForm = () => {
   };
 
   return changeForm ? (
-    <div className="registerForm">
+    <form className="registerForm" autoComplete="off">
       <h2>Регистрация</h2>
-      <button onClick={() => setChangeForm(true)}>
+      <button type="button" onClick={() => setChangeForm(false)}>
         Перейти к авторизации
       </button>
       <input
@@ -51,52 +51,56 @@ const RegisterForm = () => {
         value={username}
         onChange={(e) => setUsername(e.target.value)}
         placeholder="Имя"
+        autoComplete="off"
       />
       <input
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Email"
+        autoComplete="off"
       />
       <input
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Пароль"
+        autoComplete="new-password"
       />
-      <label>
-        <select value={gender} onChange={(e) => setGender(e.target.value)}>
-          <option value="">Выберите пол</option>
-          <option value="male">Мужской</option>
-          <option value="female">Женский</option>
-        </select>
-      </label>
+      <select value={gender} onChange={(e) => setGender(e.target.value)}>
+        <option value="">Выберите пол</option>
+        <option value="male">Мужской</option>
+        <option value="female">Женский</option>
+      </select>
       <input
         type="number"
         value={age}
         onChange={(e) => setAge(e.target.value)}
         placeholder="Возраст"
+        autoComplete="off"
       />
-      <button onClick={handleRegister}>Зарегистрироваться</button>
-    </div>
+      <button type="button" onClick={handleRegister}>Зарегистрироваться</button>
+    </form>
   ) : (
-    <div className="registerForm">
+    <form className="registerForm" autoComplete="off">
       <h2>Авторизация</h2>
-      <button onClick={() => setChangeForm(false)}>Перейти к регистрации</button>
+      <button type="button" onClick={() => setChangeForm(true)}>Перейти к регистрации</button>
       <input
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Email"
+        autoComplete="off"
       />
       <input
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Пароль"
+        autoComplete="new-password"
       />
-      <button onClick={handleLogin}>Войти</button>
-    </div>
+      <button type="button" onClick={handleLogin}>Войти</button>
+    </form>
   );
 };
 

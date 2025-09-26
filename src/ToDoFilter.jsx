@@ -5,7 +5,7 @@ const ToDoFilter = () => {
   const { setFilter } = useContext(Context);
 
   return (
-    <div>
+    <div  className="style">
       <button onClick={() => setFilter("all")}>Все</button>
       <button onClick={() => setFilter("active")}>Активные</button>
       <button onClick={() => setFilter("completed")}>Завершённые</button>

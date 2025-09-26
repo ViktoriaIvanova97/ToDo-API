@@ -1,20 +1,34 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { Context } from "./Context";
 import Task from "./Task";
 
 const TasksList = () => {
-  const { tasks, filter} = useContext(Context);
+  const { tasks, filter, setSortOrder, sortOrder } = useContext(Context);
 
-  const filteredTasks = tasks.filter((item) => {
-    if (filter === "active") return !item.isCompleted;
-    if (filter === "completed") return item.isCompleted;
-    return true;
-  });
+  const filteredAndSortedTasks = useMemo(() => {
+    let result = tasks;
+
+    if (filter === "active")
+      result = result.filter((task) => !task.isCompleted);
+    if (filter === "completed")
+      result = result.filter((task) => task.isCompleted);
+
+    result = [...result].sort((a, b) =>
+      sortOrder === "desc" ? b.id - a.id : a.id - b.id,
+    );
+
+    return result;
+  }, [tasks, filter, sortOrder]);
 
   return (
-    <div>
-      {filteredTasks.length > 0 ? (
-        filteredTasks.map((task) => <Task key={task.id} task={task} />)
+    <>
+      <div className="style" style={{paddingBottom:'15px' }}>
+        <button onClick={() => setSortOrder("desc")}>Новые сверуху</button>
+        <button onClick={() => setSortOrder("asc")}>Новые снизу</button>
+      </div>
+
+      {filteredAndSortedTasks.length > 0 ? (
+        filteredAndSortedTasks.map((task) => <Task key={task.id} task={task} />)
       ) : (
         <p
           style={{
@@ -27,7 +41,7 @@ const TasksList = () => {
           Пусто
         </p>
       )}
-    </div>
+    </>
   );
 };
 

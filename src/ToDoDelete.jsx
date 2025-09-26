@@ -11,7 +11,7 @@ const ToDoDelete = () => {
   }, [tasks]);
 
   return (
-    <div>
+    <div  className="style">
       <button onClick={clearCompletedTasks}>Очистить выполненные</button>
       <p>Осталось дел:{count}</p>
     </div>

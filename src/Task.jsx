@@ -24,11 +24,12 @@ const Task = ({ task }) => {
 
   return (
     <div
+      className="style"
       style={{
         paddingTop: "10px",
         display: "flex",
         alignItems: "center",
-        gap: "8px",
+        justifyContent: "space-between",
       }}
     >
       <input

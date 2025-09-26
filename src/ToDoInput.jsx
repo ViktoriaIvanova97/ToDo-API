@@ -16,8 +16,8 @@ const ToDoInput = () => {
   };
 
   return (
-    <div>
-      <input
+    <div className="style">
+      <input style={{borderRadius:'5px'}}
         type="text"
         value={newTask}
         onChange={(e) => setNewTask(e.target.value)}

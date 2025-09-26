@@ -1,8 +1,5 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+body {
+  margin: 0;
 }
 
 .logo {
@@ -11,6 +8,62 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
+.active {
+  text-decoration: line-through;
+}
+button {
+  background-color: #242424cf;
+  color: #f9f9f999;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background-color: #242424;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+button:focus{
+  outline: none;
+}
+.style{
+  width: 370px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: space-between;
+  color:#333;
+  font-weight: 500;
+}
+.component {
+  background-color: rgb(158 205 104);;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+
+.registerForm{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px
+}
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
@@ -31,47 +84,4 @@
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-
-.registerForm{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px
-}
-
-
-button {
-  background-color: #be452be6;
-  color: #1a1a1a;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  font-size: 16px;
-  transition: all 0.2s ease;
-}
-
-button:hover {
-  background-color: #BE452B;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-}
-
-button:active {
-  transform: translateY(0);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-button:focus{
-  outline: none;
 }

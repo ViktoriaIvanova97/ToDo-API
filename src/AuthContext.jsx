@@ -17,6 +17,7 @@ export const AuthContext = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token") || null);
   const [tasks, setTasks] = useState([]);
   const [filter, setFilter] = useState("all");
+  const [sortOrder, setSortOrder] = useState("desc");
 
   const login = async (username, password) => {
     const data = await loginUser(username, password);
@@ -77,7 +78,6 @@ export const AuthContext = ({ children }) => {
       console.log("Ошибка при удалении задачи:", error);
     }
   };
-
 
   const editTask = async (id, title) => {
     if (!token) return;
@@ -140,6 +140,8 @@ export const AuthContext = ({ children }) => {
         filter,
         setFilter,
         clearCompletedTasks,
+        setSortOrder,
+        sortOrder
       }}
     >
       {children}
