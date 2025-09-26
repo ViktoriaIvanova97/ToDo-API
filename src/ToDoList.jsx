@@ -1,25 +1,34 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Context } from "./Context";
+import Task from "./Task";
 
-const ToDoList = () => {
-  const { tasks, fetchTasks, token } = useContext(Context);
+const TasksList = () => {
+  const { tasks, filter} = useContext(Context);
 
-  useEffect(() => {
-    if (token) fetchTasks();
-  }, [token]);
+  const filteredTasks = tasks.filter((item) => {
+    if (filter === "active") return !item.isCompleted;
+    if (filter === "completed") return item.isCompleted;
+    return true;
+  });
 
   return (
     <div>
-      {!tasks || tasks.length === 0 ? (
-        <h2>ПУСТО</h2>
+      {filteredTasks.length > 0 ? (
+        filteredTasks.map((task) => <Task key={task.id} task={task} />)
       ) : (
-        <ul>
-          {tasks.map((task) => (
-            <li key={task._id}>{task.title}</li>
-          ))}
-        </ul>
+        <p
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            color: "#333",
+            fontWeight: "500",
+          }}
+        >
+          Пусто
+        </p>
       )}
     </div>
   );
 };
-export default ToDoList;
+
+export default TasksList;

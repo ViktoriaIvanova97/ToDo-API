@@ -1,5 +1,7 @@
 import ToDoInput from "./ToDoInput";
 import ToDoList from "./ToDoList";
+import ToDoFilter from "./ToDoFilter";
+import ToDoDelete from "./ToDoDelete";
 
 const ToDoForm = () => {
   return (
@@ -7,6 +9,8 @@ const ToDoForm = () => {
       <h2>TODO</h2>
       <ToDoInput />
       <ToDoList />
+      <ToDoFilter />
+      <ToDoDelete />
     </div>
   );
 };

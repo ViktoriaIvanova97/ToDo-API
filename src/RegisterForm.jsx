@@ -8,7 +8,7 @@ const RegisterForm = () => {
   const [password, setPassword] = useState("");
   const [gender, setGender] = useState("");
   const [age, setAge] = useState("");
-  const [changeForm, setChangeForm] = useState(true);
+  const [changeForm, setChangeForm] = useState(false);
 
   const navigate = useNavigate();
   const { login, register } = useContext(Context);
@@ -43,7 +43,7 @@ const RegisterForm = () => {
   return changeForm ? (
     <div className="registerForm">
       <h2>Регистрация</h2>
-      <button onClick={() => setChangeForm(false)}>
+      <button onClick={() => setChangeForm(true)}>
         Перейти к авторизации
       </button>
       <input
@@ -82,7 +82,7 @@ const RegisterForm = () => {
   ) : (
     <div className="registerForm">
       <h2>Авторизация</h2>
-      <button onClick={() => setChangeForm(true)}>Перейти к регистрации</button>
+      <button onClick={() => setChangeForm(false)}>Перейти к регистрации</button>
       <input
         type="email"
         value={email}
