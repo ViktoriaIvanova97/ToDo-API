@@ -6,7 +6,7 @@ import App from "./App.jsx";
 
 createRoot(document.getElementById("root")).render(
   <AuthContext>
-    <BrowserRouter>
+    <BrowserRouter basename="/ToDo-API">
       <App />
     </BrowserRouter>
   </AuthContext>,
